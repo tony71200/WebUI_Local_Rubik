@@ -3697,6 +3697,7 @@ Expected: FAIL, cannot resolve `./snippets.mjs`.
 // implementations and highlight them with Shiki, so the tab always shows code that really runs.
 // Plain JS (with snippets.d.mts) because it needs Node's fs and is only ever run by Vite/Vitest.
 import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { codeToHtml, createCssVariablesTheme } from 'shiki';
 
 export const REGIONS = ['facelets', 'invariants', 'kociemba', 'lbl'];
@@ -3757,8 +3758,9 @@ export function snippetsPlugin() {
       if (id !== RESOLVED) return null;
       const snippets = Object.fromEntries(REGIONS.map((r) => [r, {}]));
       for (const lang of CODE_LANGS) {
-        this.addWatchFile(lang.file);
-        const regions = extractRegions(readFileSync(lang.file, 'utf8'));
+        const file = resolve(lang.file); // absolute: a relative path would be treated as an import in dev
+        this.addWatchFile(file);
+        const regions = extractRegions(readFileSync(file, 'utf8'));
         for (const r of REGIONS) {
           if (!regions[r]) throw new Error(`${lang.file}: missing region "${r}"`);
           snippets[r][lang.id] = compactHtml(await codeToHtml(regions[r], { lang: lang.id, theme }));
