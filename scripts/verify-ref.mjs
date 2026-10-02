@@ -18,6 +18,11 @@ const RUNNERS = [
   { name: 'javascript', run: ['node', ['reference/js/rubik.mjs']] },
   { name: 'python', run: [python, ['reference/python/rubik.py']] },
   { name: 'java', run: ['java', ['reference/java/Rubik.java']] },
+  {
+    name: 'csharp',
+    build: ['dotnet', ['build', 'reference/csharp/Rubik.csproj', '-c', 'Release', '-o', '.ref-build/csharp', '--nologo', '-v', 'q']],
+    run: ['dotnet', ['.ref-build/csharp/Rubik.dll']],
+  },
 ];
 
 function run([cmd, args], input) {
