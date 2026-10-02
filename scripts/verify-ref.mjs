@@ -16,6 +16,7 @@ const python = ['python3', 'python'].find((p) => works(p, ['--version'])) ?? 'py
 const RUNNERS = [
   { name: 'typescript', run: ['node', ['--experimental-strip-types', '--no-warnings', 'scripts/make-fixtures.ts', '--check']] },
   { name: 'javascript', run: ['node', ['reference/js/rubik.mjs']] },
+  { name: 'python', run: [python, ['reference/python/rubik.py']] },
 ];
 
 function run([cmd, args], input) {
