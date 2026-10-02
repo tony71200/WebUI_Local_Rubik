@@ -1,0 +1,20 @@
+{
+  "app.title": "Rubik vòng giao",
+  "lang.toggle": "Đổi ngôn ngữ",
+  "theme.toggle": "Đổi giao diện sáng/tối",
+  "action.reset": "Đặt lại",
+  "action.undo": "Hoàn tác",
+  "action.redo": "Làm lại",
+  "cube.hint": "Kéo nền để xoay góc nhìn · kéo một ô để xoay lớp",
+  "cube.noWebgl": "Trình duyệt chưa bật WebGL nên không vẽ được khối 3D. Sơ đồ vòng bên dưới vẫn chơi được đầy đủ.",
+  "keys.toolbar": "Nút xoay theo ký hiệu",
+  "keys.prime": "Ngược chiều",
+  "keys.double": "Xoay đôi",
+  "keys.hint": "Phím chữ để xoay · Shift + phím: ngược chiều · Ctrl+Z: hoàn tác",
+  "rings.title": "Sơ đồ 9 vòng (circle puzzle)",
+  "rings.labels": "Hiện ký hiệu",
+  "rings.aria": "Chín vòng tròn giao nhau, mỗi chấm là một ô màu",
+  "rings.turn": "Xoay lớp {name}",
+  "move.prime": "ngược",
+  "move.double": "hai lần"
+}

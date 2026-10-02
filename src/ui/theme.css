@@ -1,0 +1,75 @@
+/* Design tokens (DESIGN.md). Components use only these variables. */
+:root {
+  color-scheme: light;
+  --canvas: #F7F7F5;
+  --surface: #FFFFFF;
+  --elevated: #F1F1EF;
+  --selected: #E9E9E6;
+  --hairline: #E4E4E0;
+  --ring: #C9CBCF;
+  --mute: #6E727A;
+  --body: #3A3D42;
+  --ink: #16181B;
+  --cta-bg: #16181B;
+  --cta-fg: #F7F7F5;
+  --success: #1F9D63;
+  --danger: #D93C3C;
+  --warning: #B7791F;
+  --pale-dot-edge: #9A9DA3;
+
+  --sticker-u: #F4F4F2;
+  --sticker-r: #E0352B;
+  --sticker-f: #18B35A;
+  --sticker-d: #FFD23F;
+  --sticker-l: #FF8A1F;
+  --sticker-b: #1E6BFF;
+  --plastic: #141518;
+
+  --font-ui: 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --canvas: #0B0C0E;
+    --surface: #111214;
+    --elevated: #16181B;
+    --selected: #1B1D21;
+    --hairline: #23262A;
+    --ring: #34373C;
+    --mute: #6E727A;
+    --body: #C9CBCF;
+    --ink: #F2F3F5;
+    --cta-bg: #F2F3F5;
+    --cta-fg: #0B0C0E;
+    --success: #59D499;
+    --danger: #FF6161;
+    --warning: #FFC533;
+    --pale-dot-edge: #0B0C0E;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --canvas: #0B0C0E;
+  --surface: #111214;
+  --elevated: #16181B;
+  --selected: #1B1D21;
+  --hairline: #23262A;
+  --ring: #34373C;
+  --mute: #6E727A;
+  --body: #C9CBCF;
+  --ink: #F2F3F5;
+  --cta-bg: #F2F3F5;
+  --cta-fg: #0B0C0E;
+  --success: #59D499;
+  --danger: #FF6161;
+  --warning: #FFC533;
+  --pale-dot-edge: #0B0C0E;
+}

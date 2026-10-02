@@ -1,0 +1,20 @@
+{
+  "app.title": "Rubik Rings",
+  "lang.toggle": "Switch language",
+  "theme.toggle": "Switch light/dark theme",
+  "action.reset": "Reset",
+  "action.undo": "Undo",
+  "action.redo": "Redo",
+  "cube.hint": "Drag the background to orbit · drag a sticker to turn its layer",
+  "cube.noWebgl": "WebGL is off in this browser, so the 3D cube can't be drawn. The ring diagram below still plays fully.",
+  "keys.toolbar": "Move buttons",
+  "keys.prime": "Counter-clockwise",
+  "keys.double": "Double turn",
+  "keys.hint": "Letter keys turn · Shift + key: counter-clockwise · Ctrl+Z: undo",
+  "rings.title": "9-ring diagram (circle puzzle)",
+  "rings.labels": "Show letters",
+  "rings.aria": "Nine intersecting rings; each dot is one sticker",
+  "rings.turn": "Turn layer {name}",
+  "move.prime": "prime",
+  "move.double": "twice"
+}

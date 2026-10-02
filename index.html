@@ -6,6 +6,41 @@
     <title>Rubik</title>
   </head>
   <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name" data-i18n="app.title"></span>
+          <span class="brand-meta mono">3×3 · 54 facelet</span>
+        </div>
+        <div class="topbar-actions">
+          <button type="button" class="btn" id="lang-toggle" data-i18n-aria="lang.toggle"><span class="mono" id="lang-current"></span></button>
+          <button type="button" class="btn" id="theme-toggle" data-i18n-aria="theme.toggle">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6" fill="none" stroke="currentColor" stroke-width="1.5" /><path d="M8 2a6 6 0 0 1 0 12z" fill="currentColor" /></svg>
+          </button>
+          <button type="button" class="btn" id="reset" data-i18n="action.reset"></button>
+        </div>
+      </header>
+      <main class="layout">
+        <section class="play">
+          <div class="panel">
+            <p class="hint" data-i18n="cube.hint"></p>
+            <div id="cube-view" class="cube-view"></div>
+            <p id="webgl-error" class="alert danger" data-i18n="cube.noWebgl" hidden></p>
+            <div id="keycaps" class="keycaps" role="toolbar" data-i18n-aria="keys.toolbar"></div>
+            <p class="hint keys-hint" data-i18n="keys.hint"></p>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <span data-i18n="rings.title"></span>
+              <button type="button" class="btn" id="labels-toggle" aria-pressed="false" data-i18n="rings.labels"></button>
+            </div>
+            <svg id="rings" class="rings" viewBox="-155 -155 310 310" role="group" data-i18n-aria="rings.aria"></svg>
+          </div>
+        </section>
+      </main>
+      <div id="live" class="sr-only" aria-live="polite"></div>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
