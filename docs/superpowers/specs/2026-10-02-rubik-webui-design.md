@@ -115,13 +115,29 @@ Bộ giải và bộ sinh đề chạy trong Web Worker (đóng gói inline vào
 6. Đặt vị trí góc vàng
 7. Xoay góc vàng
 
-Mỗi giai đoạn: tìm khối → nhận dạng trường hợp → áp công thức cố định. Cuối mỗi giai đoạn có assert bất biến. Kết quả trả về theo nhóm giai đoạn.
+Cách làm:
+- Trước tiên xoay cả khối (`x`/`z`) để mặt trắng xuống dưới, nên tầng cuối là mặt vàng ở trên, như các tài liệu cho người mới học.
+- Mỗi giai đoạn: tìm khối, nhận dạng trường hợp, rồi áp công thức cố định:
+  - đưa góc vào chỗ: `R U R' U'`;
+  - chèn cạnh tầng 2: `U R U' R' U' F' U F` (sang phải) hoặc nghịch đảo đối xứng (sang trái);
+  - chữ thập vàng: `F R U R' U' F'`;
+  - xếp cạnh vàng: `R U R' U R U2 R' U`;
+  - đặt vị trí góc vàng: `U R U' L' U R' U' L`;
+  - xoay góc vàng: `R' D' R D`.
+- Những bước đưa khối về đúng vị trí trước khi áp công thức dùng tìm kiếm rất nông (≤ 4 nước), nên không phải liệt kê tay từng trường hợp.
+- Cuối mỗi giai đoạn có assert bất biến. Kết quả trả về theo nhóm giai đoạn.
+- Một giai đoạn có thể rỗng khi trạng thái tình cờ đã đạt sẵn (ví dụ chữ thập vàng có sẵn ở khoảng 12% khối).
+
+Độ dài đo trên 300 khối ngẫu nhiên: trung bình khoảng 164 nước, chia theo giai đoạn 12 / 48 / 38 / 9 / 8 / 13 / 35. Thời gian khoảng 4 ms mỗi khối.
 
 ## 6. Sinh đề (Tab 1)
 
 Bất biến chung: không bao giờ sinh đề không giải được. Đề dạng chuỗi xáo bắt đầu từ trạng thái đã giải; đề dạng trạng thái phải thỏa 3 bất biến (tổng twist ≡ 0 mod 3, tổng flip chẵn, parity góc = parity cạnh) và qua bộ kiểm tra hợp lệ (assert).
 
-Đo khoảng cách bằng **meet-in-the-middle**: dựng sẵn tập trạng thái cách đích ≤ 5 (~620k, băm theo toạ độ cubie), rồi mở rộng ≤ 4 bước từ đề ⇒ khoảng cách chính xác tới 9.
+Đo khoảng cách bằng **meet-in-the-middle**:
+- Dựng sẵn tập trạng thái cách đích ≤ 5 nước: đúng 621.649 trạng thái, lưu trong bảng băm theo toạ độ cubie, khoảng 27 MB.
+- Từ đề, mở rộng ≤ 4 nước, nên đo được khoảng cách chính xác tới 9.
+- Tập này dựng trong worker ở lần tạo đề đầu tiên (khoảng 0,7 giây). Sau đó mỗi lần đo mất khoảng 30 ms.
 
 | Cấp | Cách sinh | Bảo đảm |
 |---|---|---|
@@ -130,9 +146,11 @@ Bất biến chung: không bao giờ sinh đề không giải được. Đề d�
 | Trung bình | như trên | 6–9 |
 | Khó | Chuỗi xáo 10–14 nước | Chứng minh khoảng cách ≥ 10 |
 | Chuyên gia | Random-state (WCA): hoán vị và hướng ngẫu nhiên thỏa bất biến → đảo lời giải Kociemba thành chuỗi xáo | Như đề WCA |
-| PLL | Trạng thái đã giải trừ hoán vị tầng cuối (+AUF ngẫu nhiên) | Luôn giải được |
-| OLL+PLL | Tầng cuối ngẫu nhiên thỏa bất biến | Luôn giải được |
-| F2L+LL | Chữ thập trắng giữ nguyên, phần còn lại ngẫu nhiên thỏa bất biến | Luôn giải được |
+| PLL | Chỉ hoán vị ngẫu nhiên tầng trên (mặt trắng, hướng mặc định), hướng đã đúng | Luôn giải được |
+| OLL+PLL | Tầng trên ngẫu nhiên thỏa bất biến | Luôn giải được |
+| F2L+LL | Chữ thập mặt dưới (vàng) giữ nguyên, phần còn lại ngẫu nhiên thỏa bất biến | Luôn giải được |
+
+Đề luyện lấy tầng trên làm tầng cuối vì khối hiển thị mặc định có mặt trắng ở trên.
 
 Sai khoảng cách thì sinh lại. Tab 1 có đồng hồ (chạy từ nước đầu tiên sau khi xáo, dừng khi khối được giải) và bộ đếm nước.
 
