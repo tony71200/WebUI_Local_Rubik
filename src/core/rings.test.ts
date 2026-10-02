@@ -41,10 +41,9 @@ describe('ring projection', () => {
   });
 
   it('turning a layer rotates its ring by 3 steps', () => {
-    const cases: [string, string][] = [['U', 'U'], ['E', 'E'], ['D', 'D'], ['R', 'R'], ['M', 'M'], ['L', 'L'], ['F', 'F'], ['S', 'S'], ['B', 'B']];
-    for (const [name, move] of cases) {
+    for (const name of ['U', 'E', 'D', 'R', 'M', 'L', 'F', 'S', 'B']) {
       const ring = RINGS.find((r) => r.name === name)!;
-      const dest = moveDestinations(move);
+      const dest = moveDestinations(name);
       const shifts = ring.ids.map((id, k) => (ring.ids.indexOf(dest[id]) - k + 12) % 12);
       expect(new Set(shifts).size).toBe(1);
       expect([3, 9]).toContain(shifts[0]);
