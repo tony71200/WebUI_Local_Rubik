@@ -7,7 +7,9 @@
     "build": "tsc -p . && vite build",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc -p ."
+    "typecheck": "tsc -p .",
+    "fixtures": "node --experimental-strip-types --no-warnings scripts/make-fixtures.ts",
+    "verify:ref": "node scripts/verify-ref.mjs"
   },
   "dependencies": {
     "three": "^0.186.1"

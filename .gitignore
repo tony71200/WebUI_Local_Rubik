@@ -7,3 +7,4 @@ reference/**/obj/
 reference/**/*.class
 reference/**/*.exe
 __pycache__/
+.ref-build/
