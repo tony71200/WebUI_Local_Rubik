@@ -22,14 +22,14 @@ Rubik Rings vừa là **trò chơi mô phỏng** cho học sinh yêu thích Rubi
 
 Sơ đồ vòng tròn là một **biểu diễn đẳng cấu** (isomorphic representation) của nhóm Rubik: mỗi vòng là một lát cắt của khối, mỗi chấm là giao của hai vòng, quay một lớp là trượt các chấm dọc vòng.
 
-<p align="center"><img src="assets/IMG_2917.PNG" alt="Ảnh gợi ý ý tưởng ban đầu: khối Rubik và sơ đồ vòng tròn" width="240"><br><sub>Ảnh gợi ý ý tưởng ban đầu (video của Matesunidas).</sub></p>
+<p align="center"><img src="assets/Sample.PNG" alt="Ảnh gợi ý ý tưởng ban đầu: khối Rubik và sơ đồ vòng tròn" width="240"><br><sub>Ảnh gợi ý ý tưởng ban đầu (video của Matesunidas).</sub></p>
 
 ### Tác giả
 
-| | |
-|---|---|
-| Ý tưởng và chủ dự án | **Nguyễn Thành Long** · [github.com/tony71200](https://github.com/tony71200) |
-| <img src="assets/claude-code.svg" alt="Claude Code" width="40"> | **Claude Code** ([Anthropic](https://claude.com/claude-code)), "cộng sự toàn phần": thiết kế, viết spec, kế hoạch, mã nguồn, test và tài liệu cùng tác giả |
+|                                                                      |                                                                                                                                                                             |
+| -------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ý tưởng và chủ dự án                                          | **Nguyễn Thành Long** · [github.com/tony71200](https://github.com/tony71200)                                                                                             |
+| <img src="assets/claude-code-64px.png" alt="Claude Code" width="40"> | **Claude Code** ([Anthropic](https://claude.com/claude-code)), "cộng sự toàn phần": thiết kế, viết spec, kế hoạch, mã nguồn, test và tài liệu cùng tác giả |
 
 ### Tính năng
 
@@ -50,16 +50,16 @@ Sơ đồ vòng tròn là một **biểu diễn đẳng cấu** (isomorphic repr
 
 ### Yêu cầu phiên bản
 
-| Thành phần | Phiên bản | Cần khi nào |
-|---|---|---|
-| Microsoft Edge hoặc Google Chrome | bản hiện hành, có WebGL 2 | luôn luôn (chạy ứng dụng) |
-| Node.js | **≥ 22.12** (đã thử 22.14) | build lần đầu và khi phát triển |
-| npm | ≥ 10 (đi kèm Node.js) | như trên |
-| Git | bất kỳ | nếu tải bằng `git clone` |
-| Python | ≥ 3.12 | chỉ cho `npm run verify:ref` |
-| g++ (hoặc clang++ trên macOS) | hỗ trợ C++17 (đã thử GCC 15.2) | chỉ cho `npm run verify:ref` |
-| .NET SDK | 9 | chỉ cho `npm run verify:ref` |
-| JDK | ≥ 11 | chỉ cho `npm run verify:ref` |
+| Thành phần                       | Phiên bản                         | Cần khi nào                         |
+| ---------------------------------- | ----------------------------------- | ------------------------------------- |
+| Microsoft Edge hoặc Google Chrome | bản hiện hành, có WebGL 2       | luôn luôn (chạy ứng dụng)        |
+| Node.js                            | **≥ 22.12** (đã thử 22.14)      | build lần đầu và khi phát triển |
+| npm                                | ≥ 10 (đi kèm Node.js)            | như trên                            |
+| Git                                | bất kỳ                            | nếu tải bằng `git clone`            |
+| Python                             | ≥ 3.12                             | chỉ cho `npm run verify:ref`          |
+| g++ (hoặc clang++ trên macOS)    | hỗ trợ C++17 (đã thử GCC 15.2) | chỉ cho `npm run verify:ref`          |
+| .NET SDK                           | 9                                   | chỉ cho `npm run verify:ref`          |
+| JDK                                | ≥ 11                               | chỉ cho `npm run verify:ref`          |
 
 Firefox và Safari chưa được kiểm thử.
 
@@ -91,32 +91,40 @@ Lần đầu, file mở nhanh sẽ tự cài thư viện (`npm ci`), build (`npm
 #### Linux
 
 1. Cài Node.js 22.12+, khuyên dùng [nvm](https://github.com/nvm-sh/nvm):
+
    ```bash
    nvm install 22
    ```
 2. Trong thư mục dự án:
+
    ```bash
    chmod +x run-linux.sh
    ```
+
    ```bash
    ./run-linux.sh
    ```
+
    Thêm tham số `rebuild` để build lại. Nếu máy không có `xdg-open`, script sẽ in đường dẫn file để bạn mở bằng Chrome hoặc Edge.
 
 #### macOS
 
 1. Cài Node.js 22.12+ bằng [Homebrew](https://brew.sh):
+
    ```bash
    brew install node
    ```
 2. **Double-click `run-macos.command`** trong Finder, hoặc trong Terminal:
+
    ```bash
    ./run-macos.command
    ```
+
    Nếu macOS chặn file vừa tải về, bấm chuột phải vào file → **Open**, hoặc chạy:
    ```bash
    xattr -d com.apple.quarantine run-macos.command
    ```
+
    Nếu file mất quyền chạy (thường gặp khi tải ZIP):
    ```bash
    chmod +x run-macos.command
@@ -126,15 +134,15 @@ Lần đầu, file mở nhanh sẽ tự cài thư viện (`npm ci`), build (`npm
 
 ### Dành cho lập trình viên
 
-| Lệnh | Việc làm |
-|---|---|
-| `npm ci` | cài đúng phiên bản thư viện theo `package-lock.json` |
-| `npm run dev` | chạy dev server Vite (tự tải lại khi sửa code) |
-| `npm test` | chạy toàn bộ test Vitest (90 test) |
-| `npm run typecheck` | kiểm tra kiểu TypeScript |
-| `npm run build` | typecheck + build ra `dist/index.html` |
+| Lệnh                | Việc làm                                                                                                                                          |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm ci`             | cài đúng phiên bản thư viện theo `package-lock.json`                                                                                          |
+| `npm run dev`        | chạy dev server Vite (tự tải lại khi sửa code)                                                                                                 |
+| `npm test`           | chạy toàn bộ test Vitest (90 test)                                                                                                               |
+| `npm run typecheck`  | kiểm tra kiểu TypeScript                                                                                                                          |
+| `npm run build`      | typecheck + build ra `dist/index.html`                                                                                                               |
 | `npm run verify:ref` | chạy bộ giải TypeScript và 5 bản Python/C++/C#/Java/JS trên 30 khối mẫu; tất cả phải in đúng `reference/expected.txt` (khoảng 1 phút) |
-| `npm run fixtures` | sinh lại `reference/fixtures.txt` và `expected.txt` từ bản TypeScript (chỉ khi cố ý đổi bộ giải) |
+| `npm run fixtures`   | sinh lại `reference/fixtures.txt` và `expected.txt` từ bản TypeScript (chỉ khi cố ý đổi bộ giải)                                          |
 
 Bản đồ mã nguồn:
 
@@ -147,12 +155,14 @@ Bản đồ mã nguồn:
 - `scripts/`: sinh fixtures, `verify:ref`, plugin trích code
 
 Tài liệu dự án:
+
 - Luật cho agent: [AGENTS.md](AGENTS.md); bối cảnh: [CLAUDE.md](CLAUDE.md); hệ thiết kế: [DESIGN.md](DESIGN.md).
 - Đặc tả: [docs/superpowers/specs/](docs/superpowers/specs/); 4 kế hoạch triển khai: [docs/superpowers/plans/](docs/superpowers/plans/).
 
 ### Nguồn đã sử dụng
 
 Thư viện và công cụ:
+
 - three.js: https://threejs.org
 - TypeScript: https://www.typescriptlang.org
 - Vite: https://vite.dev
@@ -161,6 +171,7 @@ Thư viện và công cụ:
 - Shiki: https://shiki.style
 
 Phông chữ và công cụ phát triển:
+
 - Be Vietnam Pro (Fontsource): https://fontsource.org/fonts/be-vietnam-pro
 - JetBrains Mono (Fontsource): https://fontsource.org/fonts/jetbrains-mono
 - Claude Code: https://claude.com/claude-code
@@ -169,6 +180,7 @@ Phông chữ và công cụ phát triển:
 ### Nguồn tham khảo
 
 Thuật toán và toán học:
+
 - Herbert Kociemba, Two-Phase Algorithm (chi tiết cài đặt): https://kociemba.org/math/imptwophase.htm
 - God's Number is 20 (Rokicki, Kociemba, Davidson, Dethridge, 2010): https://www.cube20.org
 - Rubik's Cube group (Wikipedia): https://en.wikipedia.org/wiki/Rubik%27s_Cube_group
@@ -177,16 +189,19 @@ Thuật toán và toán học:
 - Ruwix, Beginner's method: https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/
 
 Sơ đồ vòng tròn (circle puzzle):
+
 - MelonGO, rubiks-cube-projection: https://github.com/MelonGO/rubiks-cube-projection
 - Lutz Hühnken, Circle Puzzle: https://www.huehnken.de/games/circles/index.html
 - SpeedSolving, 2D Rubik's cube: https://www.speedsolving.com/threads/2d-rubiks-cube.89846/
 
 Đề và luyện tập:
+
 - csTimer (đề luyện theo giai đoạn): https://cstimer.net
 - CFOP method (Wikipedia): https://en.wikipedia.org/wiki/CFOP_method
 - World Cube Association, Regulations: https://www.worldcubeassociation.org/regulations/
 
 Thiết kế giao diện:
+
 - taste-skill: https://github.com/Leonxlnx/taste-skill
 - impeccable.style: https://impeccable.style
 - awesome-design-md: https://github.com/VoltAgent/awesome-design-md
@@ -201,6 +216,7 @@ Rubik Rings is both a **puzzle toy** for students who love the Rubik's cube and 
 
 - **For students:** turn a 3D cube with the mouse, the keyboard or buttons, and see a new view of it at the same time: the 54 stickers sit on **9 intersecting concentric circles** (a circle puzzle). The app hands out puzzles by level, times you, and explains solutions step by step.
 - **For developers:** the TypeScript source has tests for:
+
   - the permutation model and the validator;
   - **Kociemba's two-phase algorithm** and the **layer-by-layer (LBL)** method;
   - **meet-in-the-middle** distance measurement.
@@ -213,9 +229,9 @@ The circle diagram is an **isomorphic representation** of the cube group: each c
 
 ### Authors
 
-| | |
-|---|---|
-| Idea and project owner | **Nguyễn Thành Long** · [github.com/tony71200](https://github.com/tony71200) |
+|                                                                      |                                                                                                                                                   |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Idea and project owner                                               | **Nguyễn Thành Long** · [github.com/tony71200](https://github.com/tony71200)                                                                   |
 | <img src="assets/claude-code-64px.png" alt="Claude Code" width="40"> | **Claude Code** ([Anthropic](https://claude.com/claude-code)), "full partner": design, spec, plans, code, tests and docs together with the author |
 
 ### Features
@@ -237,16 +253,16 @@ The circle diagram is an **isomorphic representation** of the cube group: each c
 
 ### Requirements
 
-| Component | Version | Needed for |
-|---|---|---|
-| Microsoft Edge or Google Chrome | current, with WebGL 2 | always (running the app) |
-| Node.js | **≥ 22.12** (tested 22.14) | the first build and development |
-| npm | ≥ 10 (ships with Node.js) | same as above |
-| Git | any | downloading with `git clone` |
-| Python | ≥ 3.12 | `npm run verify:ref` only |
-| g++ (or clang++ on macOS) | C++17 (tested GCC 15.2) | `npm run verify:ref` only |
-| .NET SDK | 9 | `npm run verify:ref` only |
-| JDK | ≥ 11 | `npm run verify:ref` only |
+| Component                       | Version                     | Needed for                      |
+| ------------------------------- | --------------------------- | ------------------------------- |
+| Microsoft Edge or Google Chrome | current, with WebGL 2       | always (running the app)        |
+| Node.js                         | **≥ 22.12** (tested 22.14) | the first build and development |
+| npm                             | ≥ 10 (ships with Node.js)  | same as above                   |
+| Git                             | any                         | downloading with `git clone`     |
+| Python                          | ≥ 3.12                     | `npm run verify:ref` only       |
+| g++ (or clang++ on macOS)       | C++17 (tested GCC 15.2)     | `npm run verify:ref` only       |
+| .NET SDK                        | 9                           | `npm run verify:ref` only       |
+| JDK                             | ≥ 11                       | `npm run verify:ref` only       |
 
 Firefox and Safari have not been tested.
 
@@ -278,32 +294,40 @@ The first time, the quick-start file installs the packages (`npm ci`), builds (`
 #### Linux
 
 1. Install Node.js 22.12+, preferably with [nvm](https://github.com/nvm-sh/nvm):
+
    ```bash
    nvm install 22
    ```
 2. In the project folder:
+
    ```bash
    chmod +x run-linux.sh
    ```
+
    ```bash
    ./run-linux.sh
    ```
+
    Add the `rebuild` argument to rebuild. Without `xdg-open`, the script prints the file path so you can open it in Chrome or Edge.
 
 #### macOS
 
 1. Install Node.js 22.12+ with [Homebrew](https://brew.sh):
+
    ```bash
    brew install node
    ```
 2. **Double-click `run-macos.command`** in Finder, or in Terminal:
+
    ```bash
    ./run-macos.command
    ```
+
    If macOS blocks the downloaded file, right-click it → **Open**, or run:
    ```bash
    xattr -d com.apple.quarantine run-macos.command
    ```
+
    If the file lost its execute permission (common with ZIP downloads):
    ```bash
    chmod +x run-macos.command
@@ -313,15 +337,15 @@ The first time, the quick-start file installs the packages (`npm ci`), builds (`
 
 ### For developers
 
-| Command | What it does |
-|---|---|
-| `npm ci` | install the exact package versions from `package-lock.json` |
-| `npm run dev` | Vite dev server (reloads on save) |
-| `npm test` | the whole Vitest suite (90 tests) |
-| `npm run typecheck` | TypeScript type check |
-| `npm run build` | typecheck + build `dist/index.html` |
+| Command              | What it does                                                                                                                                 |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm ci`             | install the exact package versions from `package-lock.json`                                                                                   |
+| `npm run dev`        | Vite dev server (reloads on save)                                                                                                            |
+| `npm test`           | the whole Vitest suite (90 tests)                                                                                                            |
+| `npm run typecheck`  | TypeScript type check                                                                                                                        |
+| `npm run build`      | typecheck + build `dist/index.html`                                                                                                           |
 | `npm run verify:ref` | run the TypeScript solvers and the 5 Python/C++/C#/Java/JS ports on 30 sample cubes; all must print `reference/expected.txt` (about 1 minute) |
-| `npm run fixtures` | regenerate `reference/fixtures.txt` and `expected.txt` from TypeScript (only when changing a solver on purpose) |
+| `npm run fixtures`   | regenerate `reference/fixtures.txt` and `expected.txt` from TypeScript (only when changing a solver on purpose)                               |
 
 Source map:
 
@@ -334,12 +358,14 @@ Source map:
 - `scripts/`: fixtures, `verify:ref`, the code-snippet plugin
 
 Project documents:
+
 - Agent rules: [AGENTS.md](AGENTS.md); context: [CLAUDE.md](CLAUDE.md); design system: [DESIGN.md](DESIGN.md).
 - Spec: [docs/superpowers/specs/](docs/superpowers/specs/); the 4 implementation plans: [docs/superpowers/plans/](docs/superpowers/plans/).
 
 ### Sources used
 
 Libraries and tools:
+
 - three.js: https://threejs.org
 - TypeScript: https://www.typescriptlang.org
 - Vite: https://vite.dev
@@ -348,6 +374,7 @@ Libraries and tools:
 - Shiki: https://shiki.style
 
 Fonts and development tools:
+
 - Be Vietnam Pro (Fontsource): https://fontsource.org/fonts/be-vietnam-pro
 - JetBrains Mono (Fontsource): https://fontsource.org/fonts/jetbrains-mono
 - Claude Code: https://claude.com/claude-code
@@ -356,6 +383,7 @@ Fonts and development tools:
 ### References
 
 Algorithms and mathematics:
+
 - Herbert Kociemba, Two-Phase Algorithm (implementation details): https://kociemba.org/math/imptwophase.htm
 - God's Number is 20 (Rokicki, Kociemba, Davidson, Dethridge, 2010): https://www.cube20.org
 - Rubik's Cube group (Wikipedia): https://en.wikipedia.org/wiki/Rubik%27s_Cube_group
@@ -364,16 +392,19 @@ Algorithms and mathematics:
 - Ruwix, Beginner's method: https://ruwix.com/the-rubiks-cube/how-to-solve-the-rubiks-cube-beginners-method/
 
 The circle puzzle view:
+
 - MelonGO, rubiks-cube-projection: https://github.com/MelonGO/rubiks-cube-projection
 - Lutz Hühnken, Circle Puzzle: https://www.huehnken.de/games/circles/index.html
 - SpeedSolving, 2D Rubik's cube: https://www.speedsolving.com/threads/2d-rubiks-cube.89846/
 
 Puzzles and training:
+
 - csTimer (stage-training scrambles): https://cstimer.net
 - CFOP method (Wikipedia): https://en.wikipedia.org/wiki/CFOP_method
 - World Cube Association, Regulations: https://www.worldcubeassociation.org/regulations/
 
 Interface design:
+
 - taste-skill: https://github.com/Leonxlnx/taste-skill
 - impeccable.style: https://impeccable.style
 - awesome-design-md: https://github.com/VoltAgent/awesome-design-md

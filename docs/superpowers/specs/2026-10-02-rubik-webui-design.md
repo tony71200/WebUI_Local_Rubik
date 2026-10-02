@@ -2,7 +2,7 @@
 
 - Ngày: 2026-10-02
 - Trạng thái: đã duyệt từng phần trong buổi brainstorming, chờ người dùng review bản viết
-- Ảnh tham chiếu: `assets/IMG_2917.PNG`
+- Ảnh tham chiếu: `assets/Sample.PNG`
 
 ## 1. Mục tiêu
 
