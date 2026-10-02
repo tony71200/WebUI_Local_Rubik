@@ -2367,7 +2367,7 @@ Expected:
 - [ ] **Step 8: Run the suite and commit**
 
 Run: `npm test && npm run typecheck`
-Expected: PASS (all 10 test files).
+Expected: PASS (9 test files, 34 tests).
 
 ```bash
 git add src/ui/keys.ts src/ui/keys.test.ts src/ui/controls.ts src/main.ts
