@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.vite/
+reference/**/bin/
+reference/**/obj/
+reference/**/*.class
+reference/**/*.exe
+__pycache__/
