@@ -17,6 +17,7 @@ const RUNNERS = [
   { name: 'typescript', run: ['node', ['--experimental-strip-types', '--no-warnings', 'scripts/make-fixtures.ts', '--check']] },
   { name: 'javascript', run: ['node', ['reference/js/rubik.mjs']] },
   { name: 'python', run: [python, ['reference/python/rubik.py']] },
+  { name: 'java', run: ['java', ['reference/java/Rubik.java']] },
 ];
 
 function run([cmd, args], input) {
