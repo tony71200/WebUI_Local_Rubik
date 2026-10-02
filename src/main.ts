@@ -4,6 +4,7 @@ import { solved } from './core/cube.ts';
 import { createSolverClient } from './solver/client.ts';
 import SolverWorker from './solver/worker.ts?worker&inline';
 import { createStore } from './store.ts';
+import { createAlgoTab } from './ui/algoTab.ts';
 import { mountControls, speakMove } from './ui/controls.ts';
 import { applyI18n, getLang, onLangChange, setLang } from './ui/i18n.ts';
 import { loadFonts } from './ui/fonts.ts';
@@ -41,6 +42,7 @@ const session = createSession(store);
 mountTabs($('#side'), [
   { id: 'puzzle', label: 'tab.puzzle', panel: createPuzzleTab({ solver, session }) },
   { id: 'solve', label: 'tab.solve', panel: createSolveTab({ store, solver, playback, colors, setSpeed: (x) => { speed = x; } }) },
+  { id: 'algo', label: 'tab.algo', panel: createAlgoTab() },
 ]);
 applyI18n(document);
 

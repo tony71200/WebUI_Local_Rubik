@@ -16,6 +16,12 @@
   --danger: #D93C3C;
   --warning: #B7791F;
   --pale-dot-edge: #9A9DA3;
+  --code-keyword: #9A5B00;
+  --code-string: #2E7D32;
+  --code-comment: #8A8F98;
+  --code-function: #1E5BC6;
+  --code-constant: #B3261E;
+  --code-parameter: #3A3D42;
 
   --sticker-u: #F4F4F2;
   --sticker-r: #E0352B;
@@ -52,6 +58,12 @@
     --danger: #FF6161;
     --warning: #FFC533;
     --pale-dot-edge: #0B0C0E;
+    --code-keyword: #E0A458;
+    --code-string: #8CC98F;
+    --code-comment: #6E727A;
+    --code-function: #7FB2FF;
+    --code-constant: #F28B82;
+    --code-parameter: #C9CBCF;
   }
 }
 
@@ -72,4 +84,10 @@
   --danger: #FF6161;
   --warning: #FFC533;
   --pale-dot-edge: #0B0C0E;
+  --code-keyword: #E0A458;
+  --code-string: #8CC98F;
+  --code-comment: #6E727A;
+  --code-function: #7FB2FF;
+  --code-constant: #F28B82;
+  --code-parameter: #C9CBCF;
 }
