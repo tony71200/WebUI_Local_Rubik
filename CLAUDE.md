@@ -18,10 +18,11 @@ circle-puzzle diagram kept in sync, plus tabs to generate puzzles, solve user-en
 ## Map
 
 - `src/core/`: pure model. `cube.ts` (facelets, move permutations), `cubie.ts` (corners/edges, validation), `rings.ts` (circle-puzzle geometry), `prng.ts`
-- `src/solver/`: Kociemba two-phase. `coords.ts`, `tables.ts`, `kociemba.ts` (pure, tested); `worker.ts` (IndexedDB cache) + `client.ts` (timeout/restart) + `protocol.ts`
+- `src/solver/`: Kociemba two-phase (`coords.ts`, `tables.ts`, `kociemba.ts`) and Layer-by-Layer (`lbl.ts`), all pure and tested; `worker.ts` (IndexedDB cache, puzzles) + `client.ts` (timeout/restart) + `protocol.ts`
+- `src/scramble/`: `distance.ts` (exact distance <= 9, meet-in-the-middle), `levels.ts` (seeded, always-solvable puzzles)
 - `src/store.ts`: the only state holder; move queue, undo/redo, shared animation clock
 - `src/view/`: `cube3d.ts` (three.js), `rings2d.ts` (SVG), plus pure helpers `ringPath.ts`, `drag.ts`, `ease.ts`
-- `src/ui/`: theme tokens, fonts, i18n (`i18n/vi.json`, `i18n/en.json`), keyboard and keycaps, `tabs.ts`, `solveTab.ts` + `netEditor.ts` + `playback.ts`
+- `src/ui/`: theme tokens, fonts, i18n (`i18n/vi.json`, `i18n/en.json`), keyboard and keycaps, `tabs.ts`, `solveTab.ts` + `netEditor.ts` + `playback.ts`, `puzzleTab.ts` + `session.ts`
 
 ## Data flow
 

@@ -1,6 +1,7 @@
 // Tab "Giải": paint a cube, validate it, solve it in the worker, then step through the solution.
 import { toCubie, type ValidationError } from '../core/cubie.ts';
 import type { SolverClient, SolverStatus } from '../solver/client.ts';
+import type { SolveMethod, StageMoves } from '../solver/protocol.ts';
 import type { Store } from '../store.ts';
 import { onLangChange, t, type Key } from './i18n.ts';
 import { createNetEditor } from './netEditor.ts';
@@ -44,6 +45,11 @@ export function createSolveTab({ store, solver, playback, colors, setSpeed }: So
     </div>
     <p class="hint" data-i18n="solve.hint"></p>
     <div class="alert danger" role="alert" hidden><ul class="errors"></ul></div>
+    <p class="lbl" data-i18n="solve.method"></p>
+    <div class="seg" role="radiogroup" data-i18n-aria="solve.method">
+      <button type="button" class="btn" role="radio" data-method="kociemba" data-i18n="solve.kociemba"></button>
+      <button type="button" class="btn" role="radio" data-method="lbl" data-i18n="solve.lbl"></button>
+    </div>
     <button type="button" class="cta" data-act="solve" data-i18n="solve.solve"></button>
     <p class="hint solver-status" aria-live="polite"></p>
     <section class="solution" hidden>
@@ -70,6 +76,12 @@ export function createSolveTab({ store, solver, playback, colors, setSpeed }: So
   const solution = q('.solution');
   const steps = q('.steps');
   const toggleBtn = q<HTMLButtonElement>('[data-act="toggle"]');
+  const methodBtns = [...panel.querySelectorAll<HTMLButtonElement>('[data-method]')];
+  let method: SolveMethod = 'kociemba';
+  let stages: StageMoves[] | null = null; // LBL groups for the loaded solution
+  const showMethod = () => methodBtns.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.method === method)));
+  methodBtns.forEach((b) => b.addEventListener('click', () => { method = b.dataset.method as SolveMethod; showMethod(); }));
+  showMethod();
 
   const showErrors = (errors: ValidationError[]) => {
     errorList.innerHTML = '';
@@ -92,12 +104,30 @@ export function createSolveTab({ store, solver, playback, colors, setSpeed }: So
     solution.hidden = false;
     q('.move-count').textContent = s.moves.length ? t('solve.count', { n: s.moves.length }) : t('solve.alreadySolved');
     steps.innerHTML = '';
-    s.moves.forEach((m, i) => {
-      const chip = document.createElement('span');
-      chip.className = `step${i < s.index - 1 ? ' done' : ''}${i === s.index - 1 ? ' on' : ''}`;
-      chip.textContent = m;
-      steps.append(chip);
-    });
+    steps.classList.toggle('grouped', !!stages);
+    const chip = (m: string, i: number) => {
+      const el = document.createElement('span');
+      el.className = `step${i < s.index - 1 ? ' done' : ''}${i === s.index - 1 ? ' on' : ''}`;
+      el.textContent = m;
+      return el;
+    };
+    if (!stages) s.moves.forEach((m, i) => steps.append(chip(m, i)));
+    let offset = 0;
+    for (const st of stages ?? []) {
+      if (!st.moves.length) continue;
+      const box = document.createElement('div');
+      const current = s.index - 1 >= offset && s.index - 1 < offset + st.moves.length;
+      box.className = `stage${current ? ' current' : ''}`;
+      box.innerHTML = `<p class="stage-title"><span></span> · <span class="mono"></span></p><p class="hint"></p><div class="stage-steps"></div>`;
+      box.querySelector('.stage-title span')!.textContent = t(`lbl.${st.id}` as Key);
+      box.querySelector('.stage-title .mono')!.textContent = String(st.moves.length);
+      box.querySelector('.hint')!.textContent = t(`lbl.${st.id}.hint` as Key);
+      const row = box.querySelector('.stage-steps')!;
+      st.moves.forEach((m, j) => row.append(chip(m, offset + j)));
+      steps.append(box);
+      offset += st.moves.length;
+    }
+    steps.querySelector('.step.on')?.scrollIntoView({ block: 'nearest' });
     toggleBtn.innerHTML = icon(s.playing ? 'pause' : 'play');
     toggleBtn.setAttribute('aria-label', t(s.playing ? 'player.pause' : 'player.play'));
     q('.stale').hidden = !s.stale;
@@ -129,8 +159,9 @@ export function createSolveTab({ store, solver, playback, colors, setSpeed }: So
     showErrors([]);
     status.textContent = t('solve.working');
     try {
-      const { moves } = await solver.solve(cells);
-      playback.load(Uint8Array.from(cells), moves);
+      const result = await solver.solve(cells, method);
+      stages = result.stages ?? null;
+      playback.load(Uint8Array.from(cells), result.moves);
       showStatus(solver.status());
     } catch {
       status.textContent = t('solve.failed');

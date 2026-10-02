@@ -8,6 +8,8 @@ import { mountControls, speakMove } from './ui/controls.ts';
 import { applyI18n, getLang, onLangChange, setLang } from './ui/i18n.ts';
 import { loadFonts } from './ui/fonts.ts';
 import { createPlayback } from './ui/playback.ts';
+import { createPuzzleTab } from './ui/puzzleTab.ts';
+import { createSession } from './ui/session.ts';
 import { createSolveTab } from './ui/solveTab.ts';
 import { mountTabs } from './ui/tabs.ts';
 import { cssVar, initTheme, stickerColors, toggleTheme } from './ui/theme.ts';
@@ -35,7 +37,9 @@ mountControls($('#keycaps'), store);
 
 const solver = createSolverClient(() => new SolverWorker());
 const playback = createPlayback(store);
+const session = createSession(store);
 mountTabs($('#side'), [
+  { id: 'puzzle', label: 'tab.puzzle', panel: createPuzzleTab({ solver, session }) },
   { id: 'solve', label: 'tab.solve', panel: createSolveTab({ store, solver, playback, colors, setSpeed: (x) => { speed = x; } }) },
 ]);
 applyI18n(document);
