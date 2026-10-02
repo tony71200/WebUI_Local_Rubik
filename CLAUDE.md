@@ -14,6 +14,8 @@ circle-puzzle diagram kept in sync, plus tabs to generate puzzles, solve user-en
 - `npm test`: Vitest (logic only; no DOM tests)
 - `npm run typecheck`: `tsc` (no emit)
 - `npm run build`: typecheck + build `dist/index.html` (single file, open it by double-click)
+- `npm run verify:ref`: run the TypeScript solvers and the 5 reference implementations on `reference/fixtures.txt`; all must print `reference/expected.txt`
+- `npm run fixtures`: regenerate `reference/fixtures.txt` + `expected.txt` from the TypeScript solvers (only on purpose; say why in the commit)
 
 ## Map
 
@@ -22,7 +24,9 @@ circle-puzzle diagram kept in sync, plus tabs to generate puzzles, solve user-en
 - `src/scramble/`: `distance.ts` (exact distance <= 9, meet-in-the-middle), `levels.ts` (seeded, always-solvable puzzles)
 - `src/store.ts`: the only state holder; move queue, undo/redo, shared animation clock
 - `src/view/`: `cube3d.ts` (three.js), `rings2d.ts` (SVG), plus pure helpers `ringPath.ts`, `drag.ts`, `ease.ts`
-- `src/ui/`: theme tokens, fonts, i18n (`i18n/vi.json`, `i18n/en.json`), keyboard and keycaps, `tabs.ts`, `solveTab.ts` + `netEditor.ts` + `playback.ts`, `puzzleTab.ts` + `session.ts`
+- `src/ui/`: theme tokens, fonts, i18n (`i18n/vi.json`, `i18n/en.json`), keyboard and keycaps, `tabs.ts`, `solveTab.ts` + `netEditor.ts` + `playback.ts`, `puzzleTab.ts` + `session.ts`, `algoTab.ts` + `content/`
+- `reference/`: Kociemba + LBL in Python, C++, C#, Java, JS (one file each, `#region` markers feed the Algorithms tab)
+- `scripts/`: `make-fixtures.ts`, `verify-ref.mjs`, `snippets.mjs` (Vite plugin: highlighted code regions)
 
 ## Data flow
 

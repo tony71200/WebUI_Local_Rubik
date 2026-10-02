@@ -20,6 +20,7 @@ thing on screen. Dark and light themes; default follows the OS; the user toggle 
 | `--ink` | #F2F3F5 | #16181B | headings, active ring, focus ring |
 | `--cta-bg` / `--cta-fg` | #F2F3F5 / #0B0C0E | #16181B / #F7F7F5 | the one primary action per tab |
 | `--success` `--danger` `--warning` | #59D499 #FF6161 #FFC533 | #1F9D63 #D93C3C #B7791F | status text; backgrounds at 12% via color-mix |
+| `--code-keyword` `--code-string` `--code-comment` `--code-function` `--code-constant` `--code-parameter` | #E0A458 #8CC98F #6E727A #7FB2FF #F28B82 #C9CBCF | #9A5B00 #2E7D32 #8A8F98 #1E5BC6 #B3261E #3A3D42 | syntax colors in the Algorithms tab only |
 
 Stickers (both themes): U #F4F4F2, R #E0352B, F #18B35A, D #FFD23F, L #FF8A1F, B #1E6BFF; plastic #141518.
 White and yellow dots get a 1px `--pale-dot-edge` stroke so they read on light backgrounds.

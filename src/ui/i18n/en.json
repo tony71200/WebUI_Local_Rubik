@@ -95,5 +95,9 @@
   "lbl.cornerPlace": "6. Place yellow corners",
   "lbl.cornerPlace.hint": "Keep a correctly placed corner at front-right and use U R U' L' U R' U' L.",
   "lbl.cornerTwist": "7. Twist yellow corners",
-  "lbl.cornerTwist.hint": "Repeat R' D' R D on each corner until yellow faces up, then turn U to the next corner."
+  "lbl.cornerTwist.hint": "Repeat R' D' R D on each corner until yellow faces up, then turn U to the next corner.",
+  "tab.algo": "Algorithms",
+  "algo.pick": "Pick a section to read. The code is cut straight from the 5 reference implementations, so it is the code that really runs.",
+  "algo.download": "Download full source",
+  "algo.downloadHint": "Each file reads cubes from stdin (one line of 54 digits in U R F D L B order) and prints the Kociemba;LBL solutions. All 5 match the TypeScript solvers move for move (npm run verify:ref)."
 }

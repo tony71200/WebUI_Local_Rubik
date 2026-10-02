@@ -95,5 +95,9 @@
   "lbl.cornerPlace": "6. Đặt vị trí góc vàng",
   "lbl.cornerPlace.hint": "Giữ một góc đã đúng chỗ ở trước-phải rồi dùng U R U' L' U R' U' L.",
   "lbl.cornerTwist": "7. Xoay góc vàng",
-  "lbl.cornerTwist.hint": "Lặp R' D' R D cho từng góc tới khi màu vàng hướng lên, xoay U sang góc kế tiếp."
+  "lbl.cornerTwist.hint": "Lặp R' D' R D cho từng góc tới khi màu vàng hướng lên, xoay U sang góc kế tiếp.",
+  "tab.algo": "Thuật toán",
+  "algo.pick": "Chọn một mục để đọc. Đoạn code được cắt thẳng từ 5 bản cài đặt mẫu, nên chính là code chạy thật.",
+  "algo.download": "Tải mã đầy đủ",
+  "algo.downloadHint": "Mỗi file đọc các khối từ stdin (mỗi dòng 54 chữ số theo thứ tự U R F D L B) và in lời giải Kociemba;LBL. Cả 5 bản cho kết quả giống hệt bản TypeScript từng nước (npm run verify:ref)."
 }

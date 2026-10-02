@@ -266,7 +266,7 @@ Mỗi mục có đoạn code 20–60 dòng chuyển qua lại Python / C++ / C# 
 
 ### 9.2 `npm run verify:ref`
 
-`reference/fixtures.json` gồm 30 trạng thái kèm lời giải Kociemba + LBL do bản TS sinh. Script chạy:
+`reference/fixtures.txt` (30 trạng thái, mỗi dòng 54 chữ số) và `reference/expected.txt` (lời giải Kociemba + LBL do bản TS sinh, mỗi dòng `kociemba;giai đoạn 1|…|giai đoạn 7`). Script chạy:
 
 - Python 3.12 (stdlib)
 - `g++ -std=c++17`
