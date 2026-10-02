@@ -36,12 +36,23 @@ describe('solver client', () => {
   it('resolves and rejects by request id', async () => {
     const client = createSolverClient(make);
     const a = client.solve([0, 1]);
-    const b = client.solve([2, 3]);
-    expect(workers[0].sent.map((r) => r.id)).toEqual([1, 2]);
+    const b = client.solve([2, 3], 'lbl');
+    expect(workers[0].sent).toEqual([
+      { type: 'solve', id: 1, facelets: [0, 1], method: 'kociemba' },
+      { type: 'solve', id: 2, facelets: [2, 3], method: 'lbl' },
+    ]);
     workers[0].reply({ type: 'error', id: 2, message: 'Invalid cube: flip' });
     workers[0].reply({ type: 'solution', id: 1, moves: ['R', "U'"], ms: 5 });
-    await expect(a).resolves.toEqual(['R', "U'"]);
+    await expect(a).resolves.toEqual({ moves: ['R', "U'"], stages: undefined });
     await expect(b).rejects.toThrow('Invalid cube: flip');
+  });
+
+  it('asks the worker for puzzles', async () => {
+    const client = createSolverClient(make);
+    const p = client.scramble('medium', 42);
+    expect(workers[0].sent).toEqual([{ type: 'scramble', id: 1, level: 'medium', seed: 42 }]);
+    workers[0].reply({ type: 'puzzle', id: 1, scramble: ['R', 'U2'], distance: 2, ms: 30 });
+    await expect(p).resolves.toEqual({ scramble: ['R', 'U2'], distance: 2 });
   });
 
   it('times out, terminates the worker and starts a new one', async () => {

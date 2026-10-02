@@ -129,7 +129,7 @@ export function createSolveTab({ store, solver, playback, colors, setSpeed }: So
     showErrors([]);
     status.textContent = t('solve.working');
     try {
-      const moves = await solver.solve(cells);
+      const { moves } = await solver.solve(cells);
       playback.load(Uint8Array.from(cells), moves);
       showStatus(solver.status());
     } catch {

@@ -1,5 +1,9 @@
-// Solver worker: builds (or loads cached) Kociemba tables once, then answers solve requests.
-import { solveFacelets } from './kociemba.ts';
+// Solver worker: builds (or loads cached) Kociemba tables once, then answers solve and scramble requests.
+import { normalize, toCubie } from '../core/cubie.ts';
+import { buildBall, distance, type Ball } from '../scramble/distance.ts';
+import { generatePuzzle } from '../scramble/levels.ts';
+import { solveCubie, solveFacelets } from './kociemba.ts';
+import { solveLbl } from './lbl.ts';
 import type { SolverRequest, SolverResponse } from './protocol.ts';
 import { buildTables, TABLE_STEPS, type Tables } from './tables.ts';
 
@@ -54,14 +58,30 @@ const ready: Promise<Tables> = (async () => {
   return tables;
 })();
 
+let ball: Ball | null = null; // built on the first scramble request (~0.7 s, ~27 MB)
+
 self.onmessage = async (e: MessageEvent<SolverRequest>) => {
-  const { id, facelets } = e.data;
+  const req = e.data;
   try {
     const tables = await ready;
     const t0 = performance.now();
-    const moves = solveFacelets(tables, facelets);
-    post({ type: 'solution', id, moves, ms: Math.round(performance.now() - t0) });
+    const ms = () => Math.round(performance.now() - t0);
+    if (req.type === 'solve') {
+      if (req.method === 'lbl') {
+        const check = toCubie(normalize(req.facelets));
+        if (!check.ok) throw new Error(`Invalid cube: ${check.errors.map((x) => x.kind).join(', ')}`);
+        const stages = solveLbl(Uint8Array.from(req.facelets));
+        post({ type: 'solution', id: req.id, moves: stages.flatMap((s) => s.moves), stages, ms: ms() });
+      } else {
+        post({ type: 'solution', id: req.id, moves: solveFacelets(tables, req.facelets), ms: ms() });
+      }
+    } else {
+      ball ??= buildBall();
+      const b = ball;
+      const p = generatePuzzle(req.level, req.seed, { distance: (c) => distance(b, c), solve: (c) => solveCubie(tables, c) });
+      post({ type: 'puzzle', id: req.id, scramble: p.scramble, distance: p.distance, ms: ms() });
+    }
   } catch (err) {
-    post({ type: 'error', id, message: err instanceof Error ? err.message : String(err) });
+    post({ type: 'error', id: req.id, message: err instanceof Error ? err.message : String(err) });
   }
 };
