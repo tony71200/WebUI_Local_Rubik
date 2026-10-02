@@ -95,7 +95,13 @@ Bộ giải và bộ sinh đề chạy trong Web Worker (đóng gói inline vào
 - Pha 1 → G1 = ⟨U, D, R2, L2, F2, B2⟩, toạ độ: twist (2187), flip (2048), UD-slice (495).
 - Pha 2 trong G1, toạ độ: corner perm (40320), UD-edge perm (40320), slice perm (24).
 - Bảng move + 4 bảng pruning (~4 MB). IDA* với thứ tự duyệt nước cố định.
-- Dừng tất định: trả lời giải đầu tiên dài ≤ 21 nước (HTM); giới hạn theo **số nút duyệt**, không theo thời gian. Hết giới hạn mà chưa đạt ≤ 21 thì trả lời giải tốt nhất đã tìm được (luôn tồn tại, ≤ 30).
+- Dừng tất định, giới hạn theo **số nút duyệt**, không theo thời gian:
+  - Tìm được lời giải rồi thì vẫn tiếp tục rút ngắn, cho tới khi:
+    - đã ≤ 21 nước (HTM) **và** đã duyệt đủ 200.000 nút; hoặc
+    - độ sâu pha 1 đã bằng độ dài lời giải tốt nhất (không thể ngắn hơn nữa); hoặc
+    - chạm trần 30 triệu nút.
+  - Các ngân sách chỉ áp dụng sau khi đã có lời giải đầu tiên, nên luôn có kết quả (≤ 30 nước).
+  - Nhờ vậy khối chỉ cách đích 1 nước (`R`) nhận đúng lời giải `R'`, thay vì lời giải đường vòng 8 nước khi dừng ngay ở lời giải ≤ 21 đầu tiên.
 
 ### 5.2 Layer-by-Layer
 
