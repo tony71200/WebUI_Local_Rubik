@@ -23,6 +23,11 @@ const RUNNERS = [
     build: ['dotnet', ['build', 'reference/csharp/Rubik.csproj', '-c', 'Release', '-o', '.ref-build/csharp', '--nologo', '-v', 'q']],
     run: ['dotnet', ['.ref-build/csharp/Rubik.dll']],
   },
+  {
+    name: 'cpp',
+    build: ['g++', ['-O2', '-std=c++17', 'reference/cpp/rubik.cpp', '-o', `.ref-build/rubik_cpp${exe}`]],
+    run: [resolve(`.ref-build/rubik_cpp${exe}`), []],
+  },
 ];
 
 function run([cmd, args], input) {
