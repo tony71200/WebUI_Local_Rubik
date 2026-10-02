@@ -126,3 +126,21 @@ export function isSolved(s: State): boolean {
   for (let f = 0; f < 6; f++) for (let k = 0; k < 9; k++) if (s[f * 9 + k] !== s[f * 9 + 4]) return false;
   return true;
 }
+
+const quarters = (m: Move) => (m.endsWith('2') ? 2 : m.endsWith("'") ? 3 : 1);
+
+// Merges neighbouring turns of the same layer: "R R" -> "R2", "U U'" -> nothing.
+export function simplifyMoves(moves: Move[]): Move[] {
+  const out: Move[] = [];
+  for (const m of moves) {
+    const prev = out[out.length - 1];
+    if (prev !== undefined && prev[0] === m[0]) {
+      out.pop();
+      const q = (quarters(prev) + quarters(m)) % 4;
+      if (q) out.push(m[0] + ['', '', '2', "'"][q]);
+    } else {
+      out.push(m);
+    }
+  }
+  return out;
+}

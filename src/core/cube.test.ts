@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
-  BASE_MOVES, applyMove, applyMoves, invertSequence, isSolved, layerMove, moveDestinations, parseMove, solved,
+  BASE_MOVES, applyMove, applyMoves, invertSequence, isSolved, layerMove, moveDestinations, parseMove, simplifyMoves, solved,
+  splitMoves,
   type Move,
 } from './cube.ts';
 import { mulberry32 } from './prng.ts';
@@ -80,5 +81,21 @@ describe('cube model', () => {
     const dest = moveDestinations('U');
     expect(dest[18]).toBe(36); // front top-left lands on left top-left
     expect(dest[4]).toBe(4); // U center stays
+  });
+});
+
+describe('simplifyMoves', () => {
+  it('merges and cancels neighbouring turns of the same layer', () => {
+    expect(simplifyMoves(splitMoves("R R U U' F2 F2 L L L"))).toEqual(['R2', "L'"]);
+    expect(simplifyMoves(splitMoves("R U U' R'"))).toEqual([]);
+    expect(simplifyMoves(splitMoves("x x R R2"))).toEqual(['x2', "R'"]);
+  });
+
+  it('never changes the result of a sequence', () => {
+    const rnd = mulberry32(5);
+    for (let n = 0; n < 200; n++) {
+      const seq = Array.from({ length: 12 }, () => 'URFx'[Math.floor(rnd() * 4)] + ['', "'", '2'][Math.floor(rnd() * 3)]);
+      expect(applyMoves(solved(), simplifyMoves(seq))).toEqual(applyMoves(solved(), seq));
+    }
   });
 });
