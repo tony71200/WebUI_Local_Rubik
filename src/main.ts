@@ -4,7 +4,8 @@ import { solved } from './core/cube.ts';
 import { createStore } from './store.ts';
 import { applyI18n, getLang, onLangChange, setLang } from './ui/i18n.ts';
 import { loadFonts } from './ui/fonts.ts';
-import { initTheme, stickerColors, toggleTheme } from './ui/theme.ts';
+import { cssVar, initTheme, stickerColors, toggleTheme } from './ui/theme.ts';
+import { createCube3D } from './view/cube3d.ts';
 import { createRings2D } from './view/rings2d.ts';
 
 const $ = <T extends Element = HTMLElement>(sel: string) => document.querySelector<T>(sel)!;
@@ -17,6 +18,11 @@ const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const store = createStore((m) => (reducedMotion.matches ? 0 : m.endsWith('2') ? 330 : 220));
 const colors = stickerColors();
 
+const cube = createCube3D($('#cube-view'), store, colors, cssVar('--plastic'));
+if (!cube) {
+  $('#cube-view').hidden = true;
+  $('#webgl-error').hidden = false;
+}
 const rings = createRings2D($<SVGSVGElement>('#rings'), store, colors);
 applyI18n(document);
 
@@ -37,7 +43,9 @@ labelsBtn.addEventListener('click', () => {
 });
 
 const loop = (now: number) => {
-  rings.render(store.frame(now));
+  const anim = store.frame(now);
+  cube?.render(anim);
+  rings.render(anim);
   requestAnimationFrame(loop);
 };
 requestAnimationFrame(loop);
