@@ -2,6 +2,7 @@ import './ui/theme.css';
 import './ui/app.css';
 import { solved } from './core/cube.ts';
 import { createStore } from './store.ts';
+import { mountControls, speakMove } from './ui/controls.ts';
 import { applyI18n, getLang, onLangChange, setLang } from './ui/i18n.ts';
 import { loadFonts } from './ui/fonts.ts';
 import { cssVar, initTheme, stickerColors, toggleTheme } from './ui/theme.ts';
@@ -24,7 +25,11 @@ if (!cube) {
   $('#webgl-error').hidden = false;
 }
 const rings = createRings2D($<SVGSVGElement>('#rings'), store, colors);
+mountControls($('#keycaps'), store);
 applyI18n(document);
+
+const live = $('#live');
+store.subscribe((_, move) => { live.textContent = move ? speakMove(move) : ''; });
 
 $('#reset').addEventListener('click', () => store.setState(solved()));
 $('#theme-toggle').addEventListener('click', () => toggleTheme());
